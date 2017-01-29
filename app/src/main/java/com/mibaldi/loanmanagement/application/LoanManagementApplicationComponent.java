@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 
 
 import com.birbit.android.jobqueue.JobManager;
+import com.mibaldi.loanmanagement.data.Managers.GoogleLoginManager;
+import com.mibaldi.loanmanagement.data.repositories.LoginRepository;
 import com.mibaldi.loanmanagement.data.repositories.UserDataRepository;
 import com.mibaldi.loanmanagement.router.Router;
 
@@ -21,6 +23,5 @@ public interface LoanManagementApplicationComponent {
     Context context();
     void inject(AppCompatActivity baseActivity);
     Router getRouter();
-    JobManager getJobManager();
-    UserDataRepository userDataRepository();
+    LoginRepository getLoginRepository();
 }

@@ -1,15 +1,17 @@
 package com.mibaldi.loanmanagement.ui.presenters.mainActivity;
 
-import android.app.Activity;
 import android.content.Context;
 
-import com.birbit.android.jobqueue.JobManager;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mibaldi.loanmanagement.base.BasePresenter;
 import com.mibaldi.loanmanagement.domain.callbacks.CallbackListener;
 import com.mibaldi.loanmanagement.domain.callbacks.MyError;
-import com.mibaldi.loanmanagement.domain.features.feature1.Feature1Interactor;
+import com.mibaldi.loanmanagement.domain.features.Auth.AuthInteractor;
 import com.mibaldi.loanmanagement.router.Router;
 import com.mibaldi.loanmanagement.ui.views.MainActivityView;
+import com.mibaldi.loanmanagement.utils.Constants;
 
 import javax.inject.Inject;
 
@@ -20,16 +22,44 @@ public class MainActivityPresenter extends BasePresenter<MainActivityView> {
     Router router;
 
     @Inject
-    Feature1Interactor feature1Interactor;
+    AuthInteractor authInteractor;
 
     @Inject
     MainActivityPresenter() {}
 
     public void init(final Context context) {
         this.activityContext = context;
+        authInteractor.init(activityContext, new CallbackListener<FirebaseUser>() {
+            @Override
+            public void onSuccess(FirebaseUser result) {
+            }
+
+            @Override
+            public void onError(MyError myError) {
+
+            }
+        }, Constants.GOOGLE_SIGN_IN);
+        /*authInteractor.apiConect(new CallbackListener<FirebaseUser>() {
+            @Override
+            public void onSuccess(FirebaseUser result) {
+
+            }
+
+            @Override
+            public void onError(MyError myError) {
+
+            }}
+        );*/
+        generateInFirebase();
 
     }
-    public void getUser(){
+
+    public void generateInFirebase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        myRef.setValue("Hello, World!");
+    }
+    /*public void getUser(){
         feature1Interactor.getUser(new CallbackListener<String>() {
             @Override
             public void onSuccess(String result) {
@@ -41,9 +71,26 @@ public class MainActivityPresenter extends BasePresenter<MainActivityView> {
                 getView().showMessage(myError.getDescription());
             }
         });
-    }
+    }*/
 
     public void goSecondActivity() {
-        router.goToSecondActivity();
+        router.goToLoginActivity();
+    }
+
+    public void logout() {
+
+        authInteractor.logout(new CallbackListener<FirebaseUser>() {
+            @Override
+            public void onSuccess(FirebaseUser result) {
+                authInteractor.removeAuthState();
+                router.goToLoginActivity();
+                router.finishActivity(activityContext);
+            }
+
+            @Override
+            public void onError(MyError myError) {
+
+            }
+        });
     }
 }

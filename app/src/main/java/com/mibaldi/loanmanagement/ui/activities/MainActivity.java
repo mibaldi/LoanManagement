@@ -1,5 +1,6 @@
 package com.mibaldi.loanmanagement.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.mibaldi.loanmanagement.R;
 import com.mibaldi.loanmanagement.base.baseMosby.activity.BaseMVPActivity;
 import com.mibaldi.loanmanagement.di.HasComponent;
@@ -28,7 +35,6 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
         implements MainActivityView, HasComponent<MainActivityComponent>, NavigationView.OnNavigationItemSelectedListener {
 
     private MainActivityComponent mainActivityComponent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
@@ -45,6 +51,7 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         presenter.init(this);
     }
 
@@ -80,7 +87,7 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            presenter.logout();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -98,6 +105,9 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
         return true;
     }
 
+
+
+
     @NonNull
     @Override
     public MainActivityPresenter createPresenter() {
@@ -109,7 +119,7 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
         return mainActivityComponent;
     }
 
-    private void initializeInjector() {
+    public void initializeInjector() {
         this.mainActivityComponent = DaggerMainActivityComponent.builder().loanManagementApplicationComponent(getInjector()).build();
     }
 

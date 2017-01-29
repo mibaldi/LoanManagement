@@ -20,7 +20,7 @@ android {
     }
 }
 repositories {
-    maven {url "https://clojars.org/repo/"}
+    maven { url "https://clojars.org/repo/" }
 }
 
 dependencies {
@@ -28,26 +28,31 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:'+rootProject.ext.appcompat7Version
-    compile 'com.android.support:design:25.1.0'
-    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:' + rootProject.ext.appcompat7Version
 
     //Util libraries
-    compile 'com.jakewharton:butterknife:'+rootProject.ext.butterknifeVersion
-    apt 'com.jakewharton:butterknife-compiler:'+rootProject.ext.butterknifeVersion
-    compile 'frankiesardo:icepick:'+rootProject.ext.icepickVersion
-    provided 'frankiesardo:icepick-processor:'+rootProject.ext.icepickVersion
+    compile 'com.jakewharton:butterknife:' + rootProject.ext.butterknifeVersion
+    apt 'com.jakewharton:butterknife-compiler:' + rootProject.ext.butterknifeVersion
+    compile 'frankiesardo:icepick:' + rootProject.ext.icepickVersion
+    provided 'frankiesardo:icepick-processor:' + rootProject.ext.icepickVersion
     compile 'com.hannesdorfmann.fragmentargs:annotation:' + rootProject.ext.fragmentargsVersion
     apt 'com.hannesdorfmann.fragmentargs:processor:' + rootProject.ext.fragmentargsVersion
 
     //Mvp libraries
-    compile 'com.hannesdorfmann.mosby:mvp:'+rootProject.ext.mosbyVersion
-    compile 'com.hannesdorfmann.mosby:viewstate:'+rootProject.ext.mosbyVersion
-    compile 'com.google.dagger:dagger:'+rootProject.ext.dagger2Version
-    apt 'com.google.dagger:dagger-compiler:'+rootProject.ext.dagger2Version
+    compile 'com.hannesdorfmann.mosby:mvp:' + rootProject.ext.mosbyVersion
+    compile 'com.hannesdorfmann.mosby:viewstate:' + rootProject.ext.mosbyVersion
+    compile 'com.google.dagger:dagger:' + rootProject.ext.dagger2Version
+    apt 'com.google.dagger:dagger-compiler:' + rootProject.ext.dagger2Version
 
-    provided 'javax.annotation:jsr250-api:1.0'
+    compile 'com.android.support:design:'+ rootProject.ext.appcompat7Version
     compile 'com.birbit:android-priority-jobqueue:2.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.firebase:firebase-database:'+rootProject.ext.firebaseVersion
+    compile 'com.google.firebase:firebase-auth:'+rootProject.ext.firebaseVersion
+    compile 'com.google.android.gms:play-services-auth:'+rootProject.ext.firebaseVersion
+    testCompile 'junit:junit:4.12'
+    provided 'javax.annotation:jsr250-api:1.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

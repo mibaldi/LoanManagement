@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 
-import com.mibaldi.loanmanagement.ui.activities.SecondActivity;
+import com.mibaldi.loanmanagement.ui.activities.MainActivity;
+import com.mibaldi.loanmanagement.ui.activities.LoginActivity;
 
 import javax.inject.Inject;
 
@@ -22,9 +23,17 @@ public class Router {
             ((AppCompatActivity) (activityContext)).finish();
         }
     }
-    public void goToSecondActivity(){
+    public void goToLoginActivity(){
         if (context != null){
-            Intent intent = SecondActivity.getCallingIntent(context,SecondActivity.class);
+            Intent intent = LoginActivity.getCallingIntent(context,LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
+
+    public void goToMainActivity() {
+        if (context != null){
+            Intent intent = MainActivity.getCallingIntent(context,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
