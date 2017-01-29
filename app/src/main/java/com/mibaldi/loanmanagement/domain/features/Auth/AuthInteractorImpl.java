@@ -1,4 +1,4 @@
-package com.mibaldi.loanmanagement.domain.features.Auth;
+package com.mibaldi.loanmanagement.domain.features.auth;
 
 
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import com.google.firebase.auth.FirebaseUser;
 import com.mibaldi.loanmanagement.data.repositories.LoginRepository;
 import com.mibaldi.loanmanagement.domain.callbacks.CallbackListener;
-import com.mibaldi.loanmanagement.domain.callbacks.MyError;
 
 import javax.inject.Inject;
 

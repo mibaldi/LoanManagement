@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.mibaldi.loanmanagement.base.BasePresenter;
 import com.mibaldi.loanmanagement.domain.callbacks.CallbackListener;
 import com.mibaldi.loanmanagement.domain.callbacks.MyError;
-import com.mibaldi.loanmanagement.domain.features.Auth.AuthInteractor;
+import com.mibaldi.loanmanagement.domain.features.auth.AuthInteractor;
 import com.mibaldi.loanmanagement.router.Router;
 import com.mibaldi.loanmanagement.ui.views.MainActivityView;
 import com.mibaldi.loanmanagement.utils.Constants;

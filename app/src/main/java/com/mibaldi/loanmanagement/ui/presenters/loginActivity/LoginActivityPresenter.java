@@ -8,8 +8,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mibaldi.loanmanagement.base.BasePresenter;
 import com.mibaldi.loanmanagement.domain.callbacks.CallbackListener;
 import com.mibaldi.loanmanagement.domain.callbacks.MyError;
-import com.mibaldi.loanmanagement.domain.features.Auth.AuthInteractor;
-import com.mibaldi.loanmanagement.domain.features.Auth.AuthInteractorImpl;
+import com.mibaldi.loanmanagement.domain.features.auth.AuthInteractor;
+import com.mibaldi.loanmanagement.domain.features.auth.AuthInteractorImpl;
+import com.mibaldi.loanmanagement.domain.features.user.UserInteractor;
+import com.mibaldi.loanmanagement.domain.features.user.UserInteractorImpl;
 import com.mibaldi.loanmanagement.router.Router;
 import com.mibaldi.loanmanagement.ui.views.SecondActivityView;
 import com.mibaldi.loanmanagement.utils.Constants;
@@ -23,7 +25,11 @@ public class LoginActivityPresenter extends BasePresenter<SecondActivityView> {
     Router router;
 
     @Inject
-    AuthInteractorImpl authInteractor;
+    AuthInteractor authInteractor;
+
+    @Inject
+    UserInteractorImpl userInteractor;
+
     @Inject
     LoginActivityPresenter() {}
 
@@ -34,14 +40,28 @@ public class LoginActivityPresenter extends BasePresenter<SecondActivityView> {
             public void onSuccess(FirebaseUser result) {
                 if(result != null){
                     getView().hideProgress();
-                    router.goToMainActivity();
-                    router.finishActivity(activityContext);
+                    userInteractor.createUser(result,new CallbackListener<Boolean>() {
+                        @Override
+                        public void onSuccess(Boolean result) {
+                            if (result){
+                                router.goToMainActivity();
+                                router.finishActivity(activityContext);
+                            }else {
+                                Toast.makeText(activityContext,"Usuario no valido",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(MyError myError) {
+                            Toast.makeText(activityContext,"Usuario no valido",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 }
             }
             @Override
             public void onError(MyError myError) {
                 Toast.makeText(activityContext,"Usuario no valido",Toast.LENGTH_SHORT).show();
-                //getView().showMessage("Usuario No valido");
             }
         }, Constants.GOOGLE_SIGN_IN);
     }

@@ -24,4 +24,5 @@ public interface LoanManagementApplicationComponent {
     void inject(AppCompatActivity baseActivity);
     Router getRouter();
     LoginRepository getLoginRepository();
+    UserDataRepository getUserDataRepository();
 }

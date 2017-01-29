@@ -44,6 +44,11 @@ public class LoanManagementApplicationModule {
         GoogleLoginManager googleLoginManager = new GoogleLoginManager();
         return new LoginRepository(googleLoginManager);
     }
+    @Provides
+    @Singleton
+    UserDataRepository providedUserDataRepository(){
+        return new UserDataRepository();
+    }
 
 
 }

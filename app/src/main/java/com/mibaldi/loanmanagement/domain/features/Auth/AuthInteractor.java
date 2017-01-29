@@ -1,11 +1,9 @@
-package com.mibaldi.loanmanagement.domain.features.Auth;
+package com.mibaldi.loanmanagement.domain.features.auth;
 
 import android.content.Context;
 import android.content.Intent;
-import android.telecom.Call;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.mibaldi.loanmanagement.di.PerActivity;
 import com.mibaldi.loanmanagement.domain.callbacks.CallbackListener;
 
 
