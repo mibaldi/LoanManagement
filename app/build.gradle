@@ -29,6 +29,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:' + rootProject.ext.appcompat7Version
+    compile 'com.android.support:support-v4:'+ rootProject.ext.supportVersion
 
     //Util libraries
     compile 'com.jakewharton:butterknife:' + rootProject.ext.butterknifeVersion
@@ -37,6 +38,7 @@ dependencies {
     provided 'frankiesardo:icepick-processor:' + rootProject.ext.icepickVersion
     compile 'com.hannesdorfmann.fragmentargs:annotation:' + rootProject.ext.fragmentargsVersion
     apt 'com.hannesdorfmann.fragmentargs:processor:' + rootProject.ext.fragmentargsVersion
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 
     //Mvp libraries
     compile 'com.hannesdorfmann.mosby:mvp:' + rootProject.ext.mosbyVersion

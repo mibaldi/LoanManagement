@@ -15,4 +15,6 @@ public interface AuthInteractor {
     void addAuthState();
     void removeAuthState();
     void apiConect(CallbackListener<FirebaseUser>listener);
+
+    void getUser(CallbackListener<FirebaseUser> callbackListener);
 }

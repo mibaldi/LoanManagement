@@ -20,4 +20,6 @@ public interface LoginClientManager {
     void signInResult(Intent data);
     void apiConnect(CallbackListener<FirebaseUser> dataResultListener);
     void apiDisconnect(CallbackListener<FirebaseUser> dataResultListener);
+
+    void getUser(CallbackListener<FirebaseUser> callbackListener);
 }

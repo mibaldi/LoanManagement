@@ -9,5 +9,8 @@
     <string name="error_connection_description">Lo sentimos, pero para continuar necesitas tener acceso a internet.</string>
     <string name="error_server_title">Error de acceso</string>
     <string name="error_server_description">Lo sentimos, pero ahora mismo no es posible tramitar tu solicitud. Inténtalo más adelante. Gracias.</string>
+    <string name="debtors_list">Lista deudores</string>
+    <string name="userpicture">userPicture</string>
+    <string name="logout">Desconectarse</string>
 
 </resources>

@@ -86,4 +86,13 @@ public class LoginRepository {
 
         }
     }
+
+    public void getUser(CallbackListener<FirebaseUser> callbackListener) {
+        if (type == Constants.GOOGLE_SIGN_IN){
+            googleLoginManager.getUser(callbackListener);
+        }
+        else if (type == Constants.FB_SIGN_IN){
+
+        }
+    }
 }

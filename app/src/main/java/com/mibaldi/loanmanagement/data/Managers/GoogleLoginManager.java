@@ -138,6 +138,18 @@ public class GoogleLoginManager implements LoginClientManager {
         }
     }
 
+    @Override
+    public void getUser(CallbackListener<FirebaseUser> callbackListener) {
+        if (mAuth.getCurrentUser() != null) {
+            callbackListener.onSuccess(mAuth.getCurrentUser());
+        }else {
+            MyError myError = new MyError();
+            myError.setError(ErrorConstants.ERROR_400);
+            myError.setDescription("Without user");
+            callbackListener.onError(myError);
+        }
+    }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)

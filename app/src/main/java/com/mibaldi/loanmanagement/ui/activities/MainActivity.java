@@ -14,7 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -29,12 +33,19 @@ import com.mibaldi.loanmanagement.ui.presenters.mainActivity.MainActivityCompone
 import com.mibaldi.loanmanagement.ui.presenters.mainActivity.MainActivityPresenter;
 import com.mibaldi.loanmanagement.ui.views.MainActivityView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainActivityView>
         implements MainActivityView, HasComponent<MainActivityComponent>, NavigationView.OnNavigationItemSelectedListener {
 
     private MainActivityComponent mainActivityComponent;
+
+
+    ImageView userPicture;
+    TextView userName;
+    Button btnLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
@@ -49,10 +60,22 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        setupNavigationDrawer();
+        presenter.init(this);
+    }
+
+    private void setupNavigationDrawer() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        presenter.init(this);
+        userPicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_user_picture);
+        userName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_username);
+        btnLogout = (Button) navigationView.getHeaderView(0).findViewById(R.id.btn_logout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
     }
 
     @Override
@@ -87,7 +110,7 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            presenter.logout();
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -105,7 +128,9 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
         return true;
     }
 
-
+    public void logout(){
+        presenter.logout();
+    }
 
 
     @NonNull
@@ -123,8 +148,22 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
         this.mainActivityComponent = DaggerMainActivityComponent.builder().loanManagementApplicationComponent(getInjector()).build();
     }
 
+
+    // View methods
+
     @Override
     public void showMessage(String message) {
 
+    }
+
+    @Override
+    public void showLogout() {
+        btnLogout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showUserInfo(String username, String picture) {
+        userName.setText(username);
+        Glide.with(this).load(picture).into(userPicture);
     }
 }

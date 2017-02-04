@@ -36,34 +36,18 @@ public class MainActivityPresenter extends BasePresenter<MainActivityView> {
 
             @Override
             public void onError(MyError myError) {
-
+                getView().showMessage(myError.getDescription());
             }
         }, Constants.GOOGLE_SIGN_IN);
-        /*authInteractor.apiConect(new CallbackListener<FirebaseUser>() {
+        getUser();
+    }
+    public void getUser(){
+        authInteractor.getUser(new CallbackListener<FirebaseUser>() {
             @Override
             public void onSuccess(FirebaseUser result) {
 
-            }
-
-            @Override
-            public void onError(MyError myError) {
-
-            }}
-        );*/
-        generateInFirebase();
-
-    }
-
-    public void generateInFirebase(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World!");
-    }
-    /*public void getUser(){
-        feature1Interactor.getUser(new CallbackListener<String>() {
-            @Override
-            public void onSuccess(String result) {
-                getView().showMessage(result);
+                getView().showLogout();
+                getView().showUserInfo(result.getDisplayName(),result.getPhotoUrl().toString());
             }
 
             @Override
@@ -71,10 +55,6 @@ public class MainActivityPresenter extends BasePresenter<MainActivityView> {
                 getView().showMessage(myError.getDescription());
             }
         });
-    }*/
-
-    public void goSecondActivity() {
-        router.goToLoginActivity();
     }
 
     public void logout() {

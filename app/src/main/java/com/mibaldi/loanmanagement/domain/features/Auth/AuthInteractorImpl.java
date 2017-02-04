@@ -49,4 +49,9 @@ public class AuthInteractorImpl implements AuthInteractor {
     public void apiConect(CallbackListener<FirebaseUser> listener) {
         loginRepository.apiConnect(listener);
     }
+
+    @Override
+    public void getUser(CallbackListener<FirebaseUser> callbackListener) {
+        loginRepository.getUser(callbackListener);
+    }
 }
