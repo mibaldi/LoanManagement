@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "39591642560",
+    "firebase_url": "https://loanmanagement-bf88d.firebaseio.com",
+    "project_id": "loanmanagement-bf88d",
+    "storage_bucket": "loanmanagement-bf88d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39591642560:android:829d04470b4acd30",
+        "android_client_info": {
+          "package_name": "com.mibaldi.loanmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39591642560-vhk3jm2fd2cfucfjtrraplcioq24psoq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mibaldi.loanmanagement",
+            "certificate_hash": "CBDD44ECA66BDC789A9515EF1778E24F09AF7EC7"
+          }
+        },
+        {
+          "client_id": "39591642560-es0g2jg7jko77l0sarfh2j7cbvq66d0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4fcOPCynWGBsXaaBS6G2UgwWfm86kbFw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39591642560-es0g2jg7jko77l0sarfh2j7cbvq66d0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
