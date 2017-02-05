@@ -4,8 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
 
-import com.birbit.android.jobqueue.JobManager;
-import com.mibaldi.loanmanagement.data.Managers.GoogleLoginManager;
+import com.mibaldi.loanmanagement.data.repositories.DebtorDataRepository;
 import com.mibaldi.loanmanagement.data.repositories.LoginRepository;
 import com.mibaldi.loanmanagement.data.repositories.UserDataRepository;
 import com.mibaldi.loanmanagement.router.Router;
@@ -25,4 +24,5 @@ public interface LoanManagementApplicationComponent {
     Router getRouter();
     LoginRepository getLoginRepository();
     UserDataRepository getUserDataRepository();
+    DebtorDataRepository getDebtorDataRepository();
 }

@@ -12,5 +12,6 @@
     <string name="debtors_list">Lista deudores</string>
     <string name="userpicture">userPicture</string>
     <string name="logout">Desconectarse</string>
+    <string name="create_debtor">Crear deudor</string>
 
 </resources>

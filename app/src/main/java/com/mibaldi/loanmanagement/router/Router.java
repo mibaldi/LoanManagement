@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 
+import com.mibaldi.loanmanagement.data.models.Debtor;
+import com.mibaldi.loanmanagement.ui.activities.DebtorModifyActivity;
 import com.mibaldi.loanmanagement.ui.activities.MainActivity;
 import com.mibaldi.loanmanagement.ui.activities.LoginActivity;
 
@@ -35,6 +37,14 @@ public class Router {
         if (context != null){
             Intent intent = MainActivity.getCallingIntent(context,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
+    public void goToDebtorModifyActivity(boolean update) {
+        if (context != null){
+            Intent intent = DebtorModifyActivity.getCallingIntent(context,DebtorModifyActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("update",update);
             context.startActivity(intent);
         }
     }

@@ -1,12 +1,9 @@
 package com.mibaldi.loanmanagement.application;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.birbit.android.jobqueue.JobManager;
-import com.birbit.android.jobqueue.config.Configuration;
-import com.birbit.android.jobqueue.log.CustomLogger;
-import com.mibaldi.loanmanagement.data.Managers.GoogleLoginManager;
+import com.mibaldi.loanmanagement.data.managers.GoogleLoginManager;
+import com.mibaldi.loanmanagement.data.repositories.DebtorDataRepository;
 import com.mibaldi.loanmanagement.data.repositories.LoginRepository;
 import com.mibaldi.loanmanagement.data.repositories.UserDataRepository;
 import com.mibaldi.loanmanagement.router.Router;
@@ -48,6 +45,12 @@ public class LoanManagementApplicationModule {
     @Singleton
     UserDataRepository providedUserDataRepository(){
         return new UserDataRepository();
+    }
+
+    @Provides
+    @Singleton
+    DebtorDataRepository providedDebtorDataRepository(){
+        return new DebtorDataRepository();
     }
 
 

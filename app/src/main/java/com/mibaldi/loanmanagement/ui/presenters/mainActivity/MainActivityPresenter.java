@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mibaldi.loanmanagement.base.BasePresenter;
+import com.mibaldi.loanmanagement.data.models.Debtor;
 import com.mibaldi.loanmanagement.domain.callbacks.CallbackListener;
 import com.mibaldi.loanmanagement.domain.callbacks.MyError;
 import com.mibaldi.loanmanagement.domain.features.auth.AuthInteractor;
@@ -72,5 +73,9 @@ public class MainActivityPresenter extends BasePresenter<MainActivityView> {
 
             }
         });
+    }
+
+    public void createDebtor() {
+        router.goToDebtorModifyActivity(false);
     }
 }

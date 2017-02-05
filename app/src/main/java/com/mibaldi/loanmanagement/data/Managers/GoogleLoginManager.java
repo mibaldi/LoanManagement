@@ -1,4 +1,4 @@
-package com.mibaldi.loanmanagement.data.Managers;
+package com.mibaldi.loanmanagement.data.managers;
 
 import android.content.Context;
 import android.content.Intent;

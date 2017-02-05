@@ -1,13 +1,10 @@
-package com.mibaldi.loanmanagement.data.Managers;
+package com.mibaldi.loanmanagement.data.managers;
 
 import android.content.Context;
 import android.content.Intent;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.mibaldi.loanmanagement.domain.callbacks.CallbackListener;
-
-
-import javax.inject.Singleton;
 
 
 public interface LoginClientManager {

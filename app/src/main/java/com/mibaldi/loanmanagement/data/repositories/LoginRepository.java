@@ -3,16 +3,11 @@ package com.mibaldi.loanmanagement.data.repositories;
 
 import android.content.Context;
 import android.content.Intent;
-import android.telecom.Call;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.mibaldi.loanmanagement.data.Managers.GoogleLoginManager;
+import com.mibaldi.loanmanagement.data.managers.GoogleLoginManager;
 import com.mibaldi.loanmanagement.domain.callbacks.CallbackListener;
-import com.mibaldi.loanmanagement.domain.callbacks.ErrorConstants;
-import com.mibaldi.loanmanagement.domain.callbacks.MyError;
 import com.mibaldi.loanmanagement.utils.Constants;
-
-import java.io.Serializable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

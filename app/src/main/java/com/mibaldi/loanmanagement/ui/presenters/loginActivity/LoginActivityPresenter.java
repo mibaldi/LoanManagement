@@ -9,17 +9,15 @@ import com.mibaldi.loanmanagement.base.BasePresenter;
 import com.mibaldi.loanmanagement.domain.callbacks.CallbackListener;
 import com.mibaldi.loanmanagement.domain.callbacks.MyError;
 import com.mibaldi.loanmanagement.domain.features.auth.AuthInteractor;
-import com.mibaldi.loanmanagement.domain.features.auth.AuthInteractorImpl;
-import com.mibaldi.loanmanagement.domain.features.user.UserInteractor;
 import com.mibaldi.loanmanagement.domain.features.user.UserInteractorImpl;
 import com.mibaldi.loanmanagement.router.Router;
-import com.mibaldi.loanmanagement.ui.views.SecondActivityView;
+import com.mibaldi.loanmanagement.ui.views.LoginActivityView;
 import com.mibaldi.loanmanagement.utils.Constants;
 
 import javax.inject.Inject;
 
 
-public class LoginActivityPresenter extends BasePresenter<SecondActivityView> {
+public class LoginActivityPresenter extends BasePresenter<LoginActivityView> {
 
     @Inject
     Router router;

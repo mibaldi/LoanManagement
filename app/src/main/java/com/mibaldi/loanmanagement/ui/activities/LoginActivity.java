@@ -12,16 +12,15 @@ import com.mibaldi.loanmanagement.di.HasComponent;
 import com.mibaldi.loanmanagement.ui.presenters.loginActivity.DaggerLoginActivityComponent;
 import com.mibaldi.loanmanagement.ui.presenters.loginActivity.LoginActivityComponent;
 import com.mibaldi.loanmanagement.ui.presenters.loginActivity.LoginActivityPresenter;
-import com.mibaldi.loanmanagement.ui.views.SecondActivityView;
+import com.mibaldi.loanmanagement.ui.views.LoginActivityView;
 
 import butterknife.OnClick;
-import icepick.State;
 
 import static com.mibaldi.loanmanagement.utils.Constants.GOOGLE_SIGN_IN;
 
 
-public class LoginActivity extends BaseMVPActivity<LoginActivityPresenter, SecondActivityView>
-        implements SecondActivityView, HasComponent<LoginActivityComponent> {
+public class LoginActivity extends BaseMVPActivity<LoginActivityPresenter, LoginActivityView>
+        implements LoginActivityView, HasComponent<LoginActivityComponent> {
 
 
     private LoginActivityComponent loginActivityComponent;
@@ -30,7 +29,7 @@ public class LoginActivity extends BaseMVPActivity<LoginActivityPresenter, Secon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_login);
 
         super.onCreate(savedInstanceState);
         presenter.init(this);

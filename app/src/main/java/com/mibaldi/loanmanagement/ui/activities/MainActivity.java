@@ -36,6 +36,7 @@ import com.mibaldi.loanmanagement.ui.views.MainActivityView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainActivityView>
         implements MainActivityView, HasComponent<MainActivityComponent>, NavigationView.OnNavigationItemSelectedListener {
@@ -49,8 +50,8 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -131,7 +132,10 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
     public void logout(){
         presenter.logout();
     }
-
+    @OnClick(R.id.btn_createdebtor)
+    public void createDebtor(){
+        presenter.createDebtor();
+    }
 
     @NonNull
     @Override
