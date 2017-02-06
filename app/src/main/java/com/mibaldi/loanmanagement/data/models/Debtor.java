@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Debtor implements Parcelable {
+    private String id;
     private String name;
     private String email;
-    private List<Money> debtList;
+    private List<Money> debtList = new ArrayList<>();
 
     public Debtor(String name, String email, List<Money> debtList) {
         this.name = name;
@@ -21,10 +22,24 @@ public class Debtor implements Parcelable {
         this.email = email;
     }
 
+    public Debtor(String id, String name, String email, List<Money> debtList) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.debtList = debtList;
+    }
+
     public Debtor() {
 
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }
@@ -79,4 +94,7 @@ public class Debtor implements Parcelable {
             return new Debtor[size];
         }
     };
+    public static Creator<Debtor> getCREATOR() {
+        return CREATOR;
+    }
 }

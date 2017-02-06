@@ -137,6 +137,13 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter, MainAct
         presenter.createDebtor();
     }
 
+
+    @OnClick(R.id.btn_listdebtors)
+    public void listDebtor(){
+        presenter.goToDebtorList();
+    }
+
+
     @NonNull
     @Override
     public MainActivityPresenter createPresenter() {

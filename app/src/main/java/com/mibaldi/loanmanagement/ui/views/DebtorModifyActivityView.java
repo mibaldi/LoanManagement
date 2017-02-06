@@ -7,4 +7,6 @@ public interface DebtorModifyActivityView extends BaseView {
     void showProgress();
 
     void hideProgress();
+
+    void setupView(String name,String email);
 }

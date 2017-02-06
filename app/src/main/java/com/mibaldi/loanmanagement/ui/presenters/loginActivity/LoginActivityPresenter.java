@@ -33,24 +33,27 @@ public class LoginActivityPresenter extends BasePresenter<LoginActivityView> {
 
     public void init(final Context context) {
         this.activityContext = context;
+        getView().showProgress();
         authInteractor.init(activityContext, new CallbackListener<FirebaseUser>() {
             @Override
             public void onSuccess(FirebaseUser result) {
                 if(result != null){
-                    getView().hideProgress();
                     userInteractor.createUser(result,new CallbackListener<Boolean>() {
                         @Override
                         public void onSuccess(Boolean result) {
                             if (result){
+                                getView().hideProgress();
                                 router.goToMainActivity();
                                 router.finishActivity(activityContext);
                             }else {
+                                getView().hideProgress();
                                 Toast.makeText(activityContext,"Usuario no valido",Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onError(MyError myError) {
+                            getView().hideProgress();
                             Toast.makeText(activityContext,"Usuario no valido",Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -59,6 +62,7 @@ public class LoginActivityPresenter extends BasePresenter<LoginActivityView> {
             }
             @Override
             public void onError(MyError myError) {
+                getView().hideProgress();
                 Toast.makeText(activityContext,"Usuario no valido",Toast.LENGTH_SHORT).show();
             }
         }, Constants.GOOGLE_SIGN_IN);

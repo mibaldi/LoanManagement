@@ -78,4 +78,8 @@ public class MainActivityPresenter extends BasePresenter<MainActivityView> {
     public void createDebtor() {
         router.goToDebtorModifyActivity(false);
     }
+
+    public void goToDebtorList() {
+        router.goToDebtorListActivity();
+    }
 }

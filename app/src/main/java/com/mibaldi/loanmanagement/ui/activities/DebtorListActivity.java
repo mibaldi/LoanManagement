@@ -1,9 +1,11 @@
 package com.mibaldi.loanmanagement.ui.activities;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -11,54 +13,65 @@ import android.widget.Toast;
 
 import com.mibaldi.loanmanagement.R;
 import com.mibaldi.loanmanagement.base.baseMosby.activity.BaseMVPActivity;
+import com.mibaldi.loanmanagement.data.models.Debtor;
 import com.mibaldi.loanmanagement.di.HasComponent;
+import com.mibaldi.loanmanagement.ui.adapters.DebtorListAdapter;
+import com.mibaldi.loanmanagement.ui.presenters.debtorListActivity.DaggerDebtorListActivityComponent;
+import com.mibaldi.loanmanagement.ui.presenters.debtorListActivity.DebtorListActivityComponent;
+import com.mibaldi.loanmanagement.ui.presenters.debtorListActivity.DebtorListActivityPresenter;
 import com.mibaldi.loanmanagement.ui.presenters.debtorModifyActivity.DaggerDebtorModifyActivityComponent;
 import com.mibaldi.loanmanagement.ui.presenters.debtorModifyActivity.DebtorModifyActivityComponent;
 import com.mibaldi.loanmanagement.ui.presenters.debtorModifyActivity.DebtorModifyActivityPresenter;
-import com.mibaldi.loanmanagement.ui.presenters.loginActivity.DaggerLoginActivityComponent;
-import com.mibaldi.loanmanagement.ui.presenters.loginActivity.LoginActivityComponent;
-import com.mibaldi.loanmanagement.ui.presenters.loginActivity.LoginActivityPresenter;
+import com.mibaldi.loanmanagement.ui.views.DebtorListActivityView;
 import com.mibaldi.loanmanagement.ui.views.DebtorModifyActivityView;
-import com.mibaldi.loanmanagement.ui.views.LoginActivityView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.mibaldi.loanmanagement.utils.Constants.GOOGLE_SIGN_IN;
 
+public class DebtorListActivity extends BaseMVPActivity<DebtorListActivityPresenter, DebtorListActivityView>
+        implements DebtorListActivityView, HasComponent<DebtorListActivityComponent> {
 
-public class DebtorModifyActivity extends BaseMVPActivity<DebtorModifyActivityPresenter, DebtorModifyActivityView>
-        implements DebtorModifyActivityView, HasComponent<DebtorModifyActivityComponent> {
-
-    @BindView(R.id.tv_debtorName)
-    EditText debtorName;
-    @BindView(R.id.tv_debtorEmail)
-    EditText debtorEmail;
-
-    private DebtorModifyActivityComponent debtorModifyActivityComponent;
+    private DebtorListActivityComponent debtorListActivityComponent;
     private ProgressDialog progressDialog;
 
+    @BindView(R.id.rv_debtorlist)
+    RecyclerView debtorListView;
+    private DebtorListAdapter debtorListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
-        setContentView(R.layout.activity_debtor_modify);
+        setContentView(R.layout.activity_debtor_list);
 
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         if (getSupportActionBar() != null){
+            getSupportActionBar().setTitle(getClass().getName());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        if (getIntent().getExtras() != null){
-            presenter.init(this,getIntent().getExtras().getBoolean("update"));
         }
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Cargando...");
 
+        debtorListAdapter = new DebtorListAdapter();
+        debtorListView.setLayoutManager(new LinearLayoutManager(this));
+        debtorListView.setAdapter(debtorListAdapter);
+        presenter.init(this);
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.refreshList();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
@@ -76,14 +89,10 @@ public class DebtorModifyActivity extends BaseMVPActivity<DebtorModifyActivityPr
             progressDialog.dismiss();
         }
     }
-    @OnClick(R.id.btn_save_debtor)
-    public void save(){
-        presenter.createDebtor(debtorName.getText().toString(),debtorEmail.getText().toString());
-    }
     @NonNull
     @Override
-    public DebtorModifyActivityPresenter createPresenter() {
-        return debtorModifyActivityComponent.presenter();
+    public DebtorListActivityPresenter createPresenter() {
+        return debtorListActivityComponent.presenter();
     }
 
     @Override
@@ -92,12 +101,12 @@ public class DebtorModifyActivity extends BaseMVPActivity<DebtorModifyActivityPr
     }
 
     @Override
-    public DebtorModifyActivityComponent getComponent() {
-        return debtorModifyActivityComponent;
+    public DebtorListActivityComponent getComponent() {
+        return debtorListActivityComponent;
     }
 
     public void initializeInjector() {
-        this.debtorModifyActivityComponent = DaggerDebtorModifyActivityComponent.builder().loanManagementApplicationComponent(getInjector()).build();
+        this.debtorListActivityComponent = DaggerDebtorListActivityComponent.builder().loanManagementApplicationComponent(getInjector()).build();
     }
 
 
@@ -114,9 +123,7 @@ public class DebtorModifyActivity extends BaseMVPActivity<DebtorModifyActivityPr
     }
 
     @Override
-    public void setupView(String name, String email) {
-        debtorName.setText(name);
-        debtorEmail.setText(email);
-
+    public void initializeAdapter(List<Debtor> debtorList, DebtorListAdapter.OnItemClickListener listener) {
+        debtorListAdapter.setDataAndListener(debtorList,listener);
     }
 }

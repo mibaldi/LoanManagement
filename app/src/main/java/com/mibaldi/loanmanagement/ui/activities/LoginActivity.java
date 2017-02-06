@@ -32,10 +32,12 @@ public class LoginActivity extends BaseMVPActivity<LoginActivityPresenter, Login
         setContentView(R.layout.activity_login);
 
         super.onCreate(savedInstanceState);
-        presenter.init(this);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Cargando...");
+
+        presenter.init(this);
 
     }
     @OnClick(R.id.sign_in_button)
