@@ -11,11 +11,17 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.mibaldi.loanmanagement.R;
 import com.mibaldi.loanmanagement.base.baseMosby.activity.BaseMVPActivity;
 import com.mibaldi.loanmanagement.data.models.Debtor;
 import com.mibaldi.loanmanagement.di.HasComponent;
 import com.mibaldi.loanmanagement.ui.adapters.DebtorListAdapter;
+import com.mibaldi.loanmanagement.ui.adapters.DebtorListFirebaseAdapter;
 import com.mibaldi.loanmanagement.ui.presenters.debtorListActivity.DaggerDebtorListActivityComponent;
 import com.mibaldi.loanmanagement.ui.presenters.debtorListActivity.DebtorListActivityComponent;
 import com.mibaldi.loanmanagement.ui.presenters.debtorListActivity.DebtorListActivityPresenter;
@@ -39,7 +45,7 @@ public class DebtorListActivity extends BaseMVPActivity<DebtorListActivityPresen
 
     @BindView(R.id.rv_debtorlist)
     RecyclerView debtorListView;
-    private DebtorListAdapter debtorListAdapter;
+    private LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +65,71 @@ public class DebtorListActivity extends BaseMVPActivity<DebtorListActivityPresen
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Cargando...");
 
-        debtorListAdapter = new DebtorListAdapter();
-        debtorListView.setLayoutManager(new LinearLayoutManager(this));
-        debtorListView.setAdapter(debtorListAdapter);
+        attachRecyclerViewAdapter();
         presenter.init(this);
 
+    }
+    private void attachRecyclerViewAdapter() {
+
+        debtorListView.setLayoutManager(linearLayoutManager);
+        //debtorListView.setAdapter(debtorListAdapter);
+
+
+       /* Query keyRef = FirebaseDatabase.getInstance().getReference("UsersDebtors").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        Query valueRef = FirebaseDatabase.getInstance().getReference("Debtors");
+        final FirebaseIndexRecyclerAdapter<Debtor, DebtorListAdapter.DebtorListViewHolder> firebaseIndexRecyclerAdapter = new FirebaseIndexRecyclerAdapter<Debtor, DebtorListAdapter.DebtorListViewHolder>(Debtor.class, R.layout.item_debtor_list, DebtorListAdapter.DebtorListViewHolder.class, keyRef, valueRef) {
+            @Override
+            protected void populateViewHolder(DebtorListAdapter.DebtorListViewHolder viewHolder, Debtor model, int position) {
+
+            }
+
+            @Override
+            protected void onDataChanged() {
+                super.onDataChanged();
+            }
+        };*/
+       /* firebaseIndexRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                linearLayoutManager.smoothScrollToPosition(debtorListView,null,firebaseIndexRecyclerAdapter.getItemCount());
+            }
+        });
+        debtorListView.setAdapter(firebaseIndexRecyclerAdapter);*/
+
+       /* Query lastFifty = mChatRef.limitToLast(50);
+        mRecyclerViewAdapter = new FirebaseRecyclerAdapter<Chat, ChatHolder>(
+                Chat.class, R.layout.message, ChatHolder.class, lastFifty) {
+
+            @Override
+            public void populateViewHolder(ChatHolder chatView, Chat chat, int position) {
+                chatView.setName(chat.getName());
+                chatView.setText(chat.getMessage());
+
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser != null && chat.getUid().equals(currentUser.getUid())) {
+                    chatView.setIsSender(true);
+                } else {
+                    chatView.setIsSender(false);
+                }
+            }
+
+            @Override
+            protected void onDataChanged() {
+                // if there are no chat messages, show a view that invites the user to add a message
+                mEmptyListView.setVisibility(mRecyclerViewAdapter.getItemCount() == 0 ? View.VISIBLE : View.INVISIBLE);
+            }
+        };
+
+        // Scroll to bottom on new messages
+        mRecyclerViewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                mManager.smoothScrollToPosition(mMessages, null, mRecyclerViewAdapter.getItemCount());
+            }
+        });
+
+        debtorListView.setAdapter(mRecyclerViewAdapter);*/
     }
 
     @Override
@@ -123,7 +189,16 @@ public class DebtorListActivity extends BaseMVPActivity<DebtorListActivityPresen
     }
 
     @Override
-    public void initializeAdapter(List<Debtor> debtorList, DebtorListAdapter.OnItemClickListener listener) {
-        debtorListAdapter.setDataAndListener(debtorList,listener);
+    public void initializeAdapter(List<Debtor> debtorList, DebtorListFirebaseAdapter.OnItemClickListener listener) {
+        final DebtorListFirebaseAdapter firebaseIndexRecyclerAdapter = new DebtorListFirebaseAdapter(Debtor.class,R.layout.item_debtor_list, DebtorListFirebaseAdapter.DebtorListViewHolder.class,listener);
+        firebaseIndexRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                linearLayoutManager.smoothScrollToPosition(debtorListView,null,firebaseIndexRecyclerAdapter.getItemCount());
+            }
+        });
+        debtorListView.setAdapter(firebaseIndexRecyclerAdapter);
+        //debtorListAdapter.setDataAndListener(debtorList,listener);
     }
 }

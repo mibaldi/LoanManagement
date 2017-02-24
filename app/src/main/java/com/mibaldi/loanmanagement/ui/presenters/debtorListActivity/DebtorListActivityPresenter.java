@@ -14,6 +14,7 @@ import com.mibaldi.loanmanagement.domain.features.createDebtor.DebtorInteractor;
 import com.mibaldi.loanmanagement.domain.features.debtorList.DebtorListInteractor;
 import com.mibaldi.loanmanagement.router.Router;
 import com.mibaldi.loanmanagement.ui.adapters.DebtorListAdapter;
+import com.mibaldi.loanmanagement.ui.adapters.DebtorListFirebaseAdapter;
 import com.mibaldi.loanmanagement.ui.views.DebtorListActivityView;
 import com.mibaldi.loanmanagement.ui.views.DebtorModifyActivityView;
 
@@ -42,23 +43,24 @@ public class DebtorListActivityPresenter extends BasePresenter<DebtorListActivit
     }
 
     public void refreshList() {
-        debtorListInteractor.getDebtorList(new CallbackListener<List<Debtor>>() {
+        getView().initializeAdapter(null, new DebtorListFirebaseAdapter.OnItemClickListener() {
+            @Override
+            public void openDebtorDetail(Debtor debtor) {
+                debtorListInteractor.setCurrentDebtor(debtor);
+                router.goToDebtorModifyActivity(true);
+            }
+        });
+       /* debtorListInteractor.getDebtorList(new CallbackListener<List<Debtor>>() {
             @Override
             public void onSuccess(List<Debtor> result) {
-                getView().initializeAdapter(result, new DebtorListAdapter.OnItemClickListener() {
-                    @Override
-                    public void openDebtorDetail(Debtor debtor) {
-                        debtorListInteractor.setCurrentDebtor(debtor);
-                        router.goToDebtorModifyActivity(true);
-                    }
-                });
+
             }
 
             @Override
             public void onError(MyError myError) {
 
             }
-        });
+        });*/
     }
 
 

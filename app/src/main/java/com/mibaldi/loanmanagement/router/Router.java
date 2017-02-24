@@ -11,6 +11,7 @@ import com.mibaldi.loanmanagement.ui.activities.DebtorListActivity;
 import com.mibaldi.loanmanagement.ui.activities.DebtorModifyActivity;
 import com.mibaldi.loanmanagement.ui.activities.MainActivity;
 import com.mibaldi.loanmanagement.ui.activities.LoginActivity;
+import com.mibaldi.loanmanagement.ui.activities.ThirdActivity;
 
 import javax.inject.Inject;
 
@@ -37,6 +38,13 @@ public class Router {
     public void goToMainActivity() {
         if (context != null){
             Intent intent = MainActivity.getCallingIntent(context,MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
+    public void goToThirdActivity() {
+        if (context != null){
+            Intent intent = ThirdActivity.getCallingIntent(context,ThirdActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }

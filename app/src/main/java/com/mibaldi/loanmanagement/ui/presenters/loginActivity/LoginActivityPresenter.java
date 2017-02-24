@@ -43,7 +43,7 @@ public class LoginActivityPresenter extends BasePresenter<LoginActivityView> {
                         public void onSuccess(Boolean result) {
                             if (result){
                                 getView().hideProgress();
-                                router.goToMainActivity();
+                                router.goToThirdActivity();
                                 router.finishActivity(activityContext);
                             }else {
                                 getView().hideProgress();

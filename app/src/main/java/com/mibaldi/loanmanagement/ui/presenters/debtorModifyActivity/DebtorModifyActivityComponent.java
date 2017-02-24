@@ -13,6 +13,7 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = LoanManagementApplicationComponent.class,modules = DebtorModifyActivityModule.class)
 public interface DebtorModifyActivityComponent {
+
         DebtorModifyActivityPresenter presenter();
         AuthInteractor getAuthInteractor();
         DebtorInteractor getDebtorInteractor();

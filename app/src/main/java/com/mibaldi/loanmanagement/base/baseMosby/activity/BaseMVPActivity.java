@@ -57,7 +57,7 @@ public abstract class BaseMVPActivity<P extends BasePresenter<V>, V extends Base
         return ((LoanManagementApplication) getApplication()).getInjector();
     }
 
-    protected void addFragment(int containerViewId, Fragment fragment) {
+    public void addFragment(int containerViewId, Fragment fragment) {
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(containerViewId, fragment);
         fragmentTransaction.commitAllowingStateLoss();
